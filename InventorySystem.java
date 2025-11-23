@@ -1,6 +1,5 @@
 import java.util.*;
 
-// Main Application Class
 public class InventorySystem {
     private static Scanner scanner = new Scanner(System.in);
     private static UserManager userManager = new UserManager();
@@ -25,10 +24,8 @@ public class InventorySystem {
     }
 
     private static void initializeData() {
-        // Add default admin
         userManager.addUser(new User("admin", "admin123", true));
         
-        // Add sample products
         productManager.addProduct(new Product(1, "Laptop", 999.99, 10));
         productManager.addProduct(new Product(2, "Mouse", 29.99, 50));
         productManager.addProduct(new Product(3, "Keyboard", 79.99, 30));
@@ -278,7 +275,6 @@ public class InventorySystem {
             return;
         }
         
-        // Check stock availability
         for (CartItem item : cart.getItems()) {
             Product product = productManager.getProduct(item.getProduct().getId());
             if (product.getStock() < item.getQuantity()) {
@@ -287,11 +283,9 @@ public class InventorySystem {
             }
         }
         
-        // Create order
         Order order = new Order(orderManager.getNextOrderId(), currentUser.getUsername(), cart);
         orderManager.addOrder(order);
         
-        // Update stock
         for (CartItem item : cart.getItems()) {
             Product product = productManager.getProduct(item.getProduct().getId());
             product.setStock(product.getStock() - item.getQuantity());
@@ -346,7 +340,6 @@ public class InventorySystem {
     }
 }
 
-// User Class
 class User {
     private String username;
     private String password;
@@ -366,7 +359,6 @@ class User {
     public Cart getCart() { return cart; }
 }
 
-// UserManager Class
 class UserManager {
     private Map<String, User> users = new HashMap<>();
 
@@ -387,7 +379,6 @@ class UserManager {
     }
 }
 
-// Product Class
 class Product {
     private int id;
     private String name;
@@ -415,7 +406,6 @@ class Product {
     }
 }
 
-// ProductManager Class
 class ProductManager {
     private Map<Integer, Product> products = new HashMap<>();
 
@@ -449,7 +439,6 @@ class ProductManager {
     }
 }
 
-// CartItem Class
 class CartItem {
     private Product product;
     private int quantity;
@@ -470,7 +459,6 @@ class CartItem {
     }
 }
 
-// Cart Class
 class Cart {
     private Map<Integer, CartItem> items = new HashMap<>();
 
@@ -522,7 +510,6 @@ class Cart {
     }
 }
 
-// Order Class
 class Order {
     private int orderId;
     private String username;
@@ -553,7 +540,6 @@ class Order {
     }
 }
 
-// OrderManager Class
 class OrderManager {
     private Map<Integer, Order> orders = new HashMap<>();
     private int nextOrderId = 1;
